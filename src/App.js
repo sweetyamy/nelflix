@@ -1,10 +1,10 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import AppLayout from './layout/AppLayout.jsx';
-import Homepage from './pages/Homepage/Homepage.jsx';
-import MovieList from './pages/MovieList/MovieList.jsx';
-import MovieDetail from './pages/MovieDetail/MovieDetail.jsx';
-import NotFoundPage from './pages/NotFoundPage/NotFoundPage.jsx';
+import Homepage from './pages/Homepage/Homepage';
+import MovieList from './pages/MovieList/MovieList';
+import MovieDetail from './pages/MovieDetail/MovieDetail';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 
 // homepage   '/'
 // movie list page   '/movies'
@@ -17,12 +17,11 @@ function App() {
     <Routes>
       <Route path='/' element={<AppLayout />}>
         <Route index element={<Homepage />} />
-        <Route path='/movies'>
+        <Route path='movies'>
           <Route index element={<MovieList />} />
           <Route path=':id' element={<MovieDetail />} />
         </Route>
       </Route>
-
       <Route path='*' element={<NotFoundPage />} />
     </Routes>
   );

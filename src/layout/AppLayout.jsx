@@ -1,10 +1,12 @@
 import React from 'react'
 import { Container,Nav, Navbar, NavDropdown, Form, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Outlet } from 'react-router-dom';
 import './NavbarStyle.css';
 
 const AppLayout = () => {
   return (
+    <div>
     <Navbar expand="lg" variant="dark" bg="black">
       <Container fluid>
         <Navbar.Brand href="/"><img height={30} className="m-1" src="https://www.nicepng.com/png/full/12-127235_netflix-logo-png.png" alt="logo" /></Navbar.Brand>
@@ -43,6 +45,8 @@ const AppLayout = () => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    <Outlet /> {/* 자식 라우트가 이 위치에 렌더링 */}
+    </div>
   )
 }
 
