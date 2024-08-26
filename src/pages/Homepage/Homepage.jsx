@@ -1,6 +1,7 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Banner from './components/Banner/Banner.jsx';
+import PopularMoviesSlide from './components/PopularMoviesSlide/PopularMoviesSlide.jsx';
 
 // 1. banner
 // 2. popular movies
@@ -13,6 +14,7 @@ const Homepage = () => {
   return (
     <div>
       <Banner />
+      <PopularMoviesSlide />
     </div>
   )
 }

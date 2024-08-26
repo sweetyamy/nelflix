@@ -1,0 +1,33 @@
+.banner {
+    height: 56vh;
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.banner::before {
+    content: '';
+    background: linear-gradient(
+    to top, 
+    rgba(0, 0, 0, 1),     /* 하단 완전 검정 */
+    rgba(0, 0, 0, 0.7),   /* 중간 부분은 */
+    transparent             /* 상단으로 갈수록 완전히 투명해짐 */
+);
+    position: absolute;
+    left: 0;
+    height: 56vh;
+    width: 100%;
+}
+
+.banner-txt-area {
+    width: 36%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.banner-txt-area > * {
+    z-index: 2;
+}
