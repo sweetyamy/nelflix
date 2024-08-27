@@ -26,7 +26,7 @@ const Banner = () => {
     }
 
     const poster_path = results[0]?.poster_path;
-    const imageUrl = `https://media.themoviedb.org/t/p/w533_and_h300_bestv2${poster_path}`; //https://media.themoviedb.org/t/p/w533_and_h300_bestv2
+    const imageUrl = `https://media.themoviedb.org/t/p/w533_and_h300_bestv2${poster_path}`; 
     console.log('Image URL:', imageUrl);
     
   
@@ -43,7 +43,6 @@ const Banner = () => {
         <div className="banner-txt-area">
             <h1>{results[0].title}</h1>
             <p>{results[0].overview}</p>
-            <p>{results[0].vote_average}</p>
         </div>
             
         </div>
