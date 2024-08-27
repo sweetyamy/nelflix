@@ -9,7 +9,7 @@ const AppLayout = () => {
     <div>
     <Navbar expand="lg" variant="dark" bg="black">
       <Container fluid>
-        <Navbar.Brand href="/"><img height={30} className="m-1" src="https://www.nicepng.com/png/full/12-127235_netflix-logo-png.png" alt="logo" /></Navbar.Brand>
+        <Navbar.Brand href="/"><img height={30} className="m-1" src="https://static.vecteezy.com/system/resources/previews/017/396/814/original/netflix-mobile-application-logo-free-png.png" alt="logo" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
