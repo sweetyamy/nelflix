@@ -7,7 +7,7 @@ import { faFire, faSquarePollVertical, faCircleUser  } from '@fortawesome/free-s
 const MovieCard = ({movie}) => {
     const poster_path = movie.poster_path;
     const imageUrl = `https://media.themoviedb.org/t/p/w300_and_h450_bestv2${poster_path}`; 
-    console.log('Image URL:', imageUrl);
+    // console.log('Image URL:', imageUrl);
   return (
     <div
         style={{
@@ -19,7 +19,9 @@ const MovieCard = ({movie}) => {
         className="movie-card"
       >
         <div className='movie-card-info'>
-            <h1 className='movie-card-title'>{movie.title}</h1>
+            <h1 className='movie-card-title'>
+              {movie.title.length > 20 ? movie.title.substring(0, 20) + '...' : movie.title}
+            </h1>
 
             <div className="movie-card-badge-container">
                     {/* genre_ids가 존재하는지 확인 후 map 실행 */}

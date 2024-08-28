@@ -10,7 +10,7 @@ const UpcomingMoviesSlide = () => {
     
   const {data, isLoading, isError, error } = useUpcomingMoviesQuery();
   console.log('Upcoming data: ', data); 
-    const movies = data?.results || [];
+    const movies = data;
     console.log('Movies in UpcomingMoviesSlide:', movies);
   
   if (isLoading || !data) {

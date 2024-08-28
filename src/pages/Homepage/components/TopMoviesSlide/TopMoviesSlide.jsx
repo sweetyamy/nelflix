@@ -19,7 +19,7 @@ const TopMoviesSlide = () => {
       return <Alert variant='danger'>Error: {error.message}</Alert>
   }
   
-  const movies = data?.results || [];
+  const movies = data;
   console.log('Movies in TopMoviesSlide:', movies);
 
 return (

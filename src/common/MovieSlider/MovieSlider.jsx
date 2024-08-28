@@ -3,6 +3,7 @@ import "./MovieSliderStyle.css"
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import MovieCard from '../MovieCard/MovieCard';
+import api from '../../utils/api';
 
 const MovieSlider = ({title, movies, responsive}) => {
   console.log('Movies in MovieSlider:', movies);

@@ -9,7 +9,7 @@ const PopularMoviesSlide = () => {
   
     const {data, isLoading, isError, error } = usePopularMoviesQuery();
     console.log('popular data: ', data);
-    const movies = data?.results || [];
+    const movies = data;
     console.log('Movies in PopularMoviesSlide:', movies);
     
     if (isLoading) {
