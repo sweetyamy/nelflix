@@ -33,7 +33,7 @@ const AppLayout = () => {
               Membership
             </Nav.Link>
           </Nav>
-          <Form className="d-flex">
+          <Form className="d-flex search-area">
             <Form.Control
               type="search"
               placeholder="Search"
