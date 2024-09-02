@@ -7,7 +7,7 @@ import './NavbarStyle.css';
 const AppLayout = () => {
   return (
     <div>
-    <Navbar expand="lg" variant="dark" bg="black">
+    <Navbar expand="lg" variant="dark" bg="black" className="navbar-container">
       <Container fluid>
         <Navbar.Brand href="/"><img height={30} className="m-1" src="https://static.vecteezy.com/system/resources/previews/017/396/814/original/netflix-mobile-application-logo-free-png.png" alt="logo" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -19,7 +19,7 @@ const AppLayout = () => {
           >
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/movies">Movies</Nav.Link>
-            <NavDropdown title="English" id="navbarScrollingDropdown">
+            <NavDropdown title="English" id="navbarScrollingDropdown" className='lang-dropdown'>
               <NavDropdown.Item href="/movies">English</NavDropdown.Item>
               <NavDropdown.Item href="/movies">
               français
@@ -29,7 +29,7 @@ const AppLayout = () => {
                 한국어
               </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="#" disabled>
+            <Nav.Link href="#" disabled className='nav-membership'>
               Membership
             </Nav.Link>
           </Nav>
