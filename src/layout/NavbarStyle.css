@@ -15,7 +15,7 @@
 
 @media (max-width: 768px) {
   .navbar-container{
-    padding: 0px 15px;
+    padding: 5px 15px;
   }
 
   .lang-dropdown {
@@ -24,8 +24,9 @@
 
   .nav-membership {
     display: none;
-}
-.search-area {
-  margin-bottom: 15px;
-}
+  }
+
+  .search-area {
+    margin-bottom: 10px;
+  }
 }
