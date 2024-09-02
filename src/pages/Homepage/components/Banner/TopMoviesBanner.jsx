@@ -41,8 +41,8 @@ const Banner = () => {
         className="banner"
       >
         <div className="banner-txt-area">
-            <h1 className='banner-title'>{results[0].title}</h1>
-            <p className='banner-overview'>{results[0].overview}</p>
+            <h1>{results[0].title}</h1>
+            <p>{results[0].overview}</p>
         </div>
             
         </div>
