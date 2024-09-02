@@ -13,7 +13,7 @@ const MovieSlider = ({title, movies, responsive}) => {
 
   return (
     <div className='movie-card-container'>
-      <h3 className='movie-slide-title'>{title} Movies</h3>
+      <h3 className='movie-slide-title m-0'>{title} Movies</h3>
       <Carousel 
         responsive={responsive} 
         infinite={true} 
