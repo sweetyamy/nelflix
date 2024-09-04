@@ -1,0 +1,30 @@
+/* Pagination styles */
+.pagination .page-link {
+    background-color: black;
+    color: white;
+    border: none;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--bs-danger); 
+    color: white;
+}
+
+.pagination .page-link:hover {
+    background-color: var(--bs-danger); 
+    color: white;
+}
+
+.pagination .page-link:focus {
+    box-shadow: none; 
+}
+
+/* Style for previous and next buttons */
+.pagination .page-item .page-link {
+    background-color: black; 
+    color: white;
+}
+
+.pagination .page-link:hover {
+    background-color: var(--bs-danger); 
+}

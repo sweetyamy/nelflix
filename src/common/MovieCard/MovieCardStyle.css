@@ -4,10 +4,16 @@
     background-size: cover;
     cursor: pointer;
     transition: 0.5s;
+    position: relative; /* Ensure z-index takes effect */
+    z-index: 1; /* Default z-index for all cards */
+    overflow: visible; /* Ensure overflow is visible */
+    border-radius: 10px;
+    margin: 5px;
 }
 
 .movie-card:hover {
     transform: scale(1.2) translateZ(20px);
+    border-radius: 10px;
     z-index: 2;
 }
 
@@ -24,10 +30,12 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    border-radius: 10px;
 }
 
 .movie-card-info:hover {
     opacity: 1;
+    border-radius: 10px;
 }
 
 .movie-card-title {
