@@ -2,12 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import api from '../utils/api';
 
 const fetchSearchMovie = ({ keyword, page }) => {
-  const params = {
-    query: keyword,
-    page: page,
-    per_page: 10
-  };
-
   return keyword
     ? api.get(`/search/movie?page=${page}`, { params: { query: keyword } })
     : api.get(`/movie/popular?page=${page}`, {
