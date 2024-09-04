@@ -1,48 +1,61 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useSearchMovieQuery } from '../../hooks/useSearchMovie';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Alert, Container, Spinner, Row, Col } from 'react-bootstrap';
 import MovieCard from '../../common/MovieCard/MovieCard';
 import ReactPaginate from 'react-paginate';
 import './MovieListStyle.css';
 
-// 경로 2가지
-// nav바에서 클릭해서 온 경우
-// keyword를 입력해서 온 경우 => keyword와 관련된 영화들을 보여줌
-// install pagination
-// page state 만들기
-// 페이지네이션 클릭할때마다 page바꿔주기
-// 페이지 값이 바뀔때 마다 useSearchMovie에 page까지 넣어서 fetch
-
 const MovieList = () => {
+  const [query] = useSearchParams();
+  const navigate = useNavigate(); // Use navigate hook to handle redirection
 
-  const[ query ] = useSearchParams();
-  
   // page state 만들기
-  const [ page, setPage ] = useState(1);
+  const [page, setPage] = useState(1);
 
-  const keyword = query.get('q')
+  const keyword = query.get('q');
   const { data, isLoading, isError, error } = useSearchMovieQuery({ keyword, page });
   console.log('useSearchMovieQuery data', data);
 
-  const handlePageCliick = ({ selected }) => {
-    console.log('page', page);
+  const handlePageClick = ({ selected }) => {
     setPage(selected + 1);
   };
 
+  // no moviies found
+  useEffect(() => {
+    if (data?.results.length === 0) {
+      const timer = setTimeout(() => {
+        navigate('/movies'); // Navigate back to the movie list page
+      }, 2000); 
+
+      return () => clearTimeout(timer); 
+    }
+  }, [data, navigate]);
+
   if (isLoading) {
     return (
-    <div className='spinner-area d-flex justify-content-center align-items-center'>
-      <Spinner animation='border' variant='danger' style={{ width: '5rem', height: '5rem' }} />
-    </div>
-  );
+      <div className='spinner-area d-flex justify-content-center align-items-center'>
+        <Spinner animation='border' variant='danger' style={{ width: '5rem', height: '5rem' }} />
+      </div>
+    );
   }
 
   if (isError) {
     return (
-    <Alert variant='danger'>{ error.message }</Alert>
-  );
+      <Alert variant='danger'>{error.message}</Alert>
+    );
+  }
+
+  // Check if there are no results
+  if (data?.results.length === 0) {
+    return (
+      <Container className='d-flex flex-column justify-content-center align-items-center'>
+        <Alert variant='warning'>
+          No results found for "{keyword}". You will be redirected to the movie list in 2 seconds.
+        </Alert>
+      </Container>
+    );
   }
 
   return (
@@ -56,10 +69,11 @@ const MovieList = () => {
         <Col> 
           <Container>
             <Row className='d-flex justify-content-center'>
-            {data?.results.slice(0, 10).map((movie, index) => (
-              <Col key={ index }>
-                <MovieCard movie = { movie } />
-              </Col>))}
+              {data?.results.slice(0, 10).map((movie, index) => (
+                <Col key={index}>
+                  <MovieCard movie={movie} />
+                </Col>
+              ))}
             </Row>
           </Container>
         </Col>
@@ -67,29 +81,29 @@ const MovieList = () => {
       
       <Row className='d-flex justify-content-center mt-4'>
         <ReactPaginate
-        previousLabel="<"
-        nextLabel=">"
-        onPageChange={ handlePageCliick }
-        pageRangeDisplayed={5}
-        marginPagesDisplayed={1}
-        pageCount={data?.total_pages} // total page count
-        pageClassName="page-item"
-        pageLinkClassName="page-link"
-        previousClassName="page-item"
-        previousLinkClassName="page-link"
-        nextClassName="page-item"
-        nextLinkClassName="page-link"
-        breakLabel="..."
-        breakClassName="page-item"
-        breakLinkClassName="page-link"
-        containerClassName="pagination"
-        activeClassName="active"
-        forcePage={page-1}
-        renderOnZeroPageCount={null}
-      />
+          previousLabel="<"
+          nextLabel=">"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          marginPagesDisplayed={1}
+          pageCount={data?.total_pages} // total page count
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          breakLabel="..."
+          breakClassName="page-item"
+          breakLinkClassName="page-link"
+          containerClassName="pagination"
+          activeClassName="active"
+          forcePage={page - 1}
+          renderOnZeroPageCount={null}
+        />
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default MovieList
+export default MovieList;
