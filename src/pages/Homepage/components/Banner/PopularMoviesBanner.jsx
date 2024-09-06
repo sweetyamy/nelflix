@@ -32,19 +32,18 @@ const Banner = () => {
   
     return (
         <div
-        style={{
-          backgroundImage:
-            "url(" +
-            `${imageUrl}` +
-            ")",
-        }}
-        className="banner"
-      >
-        <div className="banner-txt-area">
-            <h1>{results[0].title}</h1>
-            <p>{results[0].overview}</p>
-        </div>
-            
+            style={{
+            backgroundImage:
+                "url(" +
+                `${imageUrl}` +
+                ")",
+            }}
+            className="banner"
+        >
+            <div className="banner-txt-area">
+                <h1>{results[0].title}</h1>
+                <p>{results[0].overview}</p>
+            </div>
         </div>
     )
   }

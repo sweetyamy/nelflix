@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Badge, Modal, Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate, useParams } from 'react-router-dom'; 
+import { useParams } from 'react-router-dom'; 
 import { useMovieGenreQuery } from '../../hooks/useMovieGenre';
 import { useMovieDetailsQuery } from '../../hooks/useMovieDetails';
 import { useMovieTrailerQuery } from '../../hooks/useMovieTrailer';
@@ -10,7 +10,6 @@ import { faFire, faSquarePollVertical, faCircleUser, faPlayCircle } from '@forta
 import './MovieDetailStyle.css';
 
 const MovieDetail = () => {
-  const navigate = useNavigate();
   const { id } = useParams();
   const { data: movie, error, isLoading } = useMovieDetailsQuery(id);
   const { data: genreData } = useMovieGenreQuery();
