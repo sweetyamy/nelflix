@@ -7,6 +7,7 @@ import { useMovieDetailsQuery } from '../../hooks/useMovieDetails';
 import { useMovieTrailerQuery } from '../../hooks/useMovieTrailer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFire, faSquarePollVertical, faCircleUser, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
+import Reviews from '../Homepage/components/Reviews/Reviews';
 import './MovieDetailStyle.css';
 
 const MovieDetail = () => {
@@ -118,6 +119,15 @@ const MovieDetail = () => {
           <p>* Released : {movie?.release_date || null}</p>
           {movie.runtime ? (<p>* Runtime : {`${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60} mins`}</p>) : null}
           {movie.revenue ? (<p>* Revenue : {parseFloat(movie.revenue).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>) : null}
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <hr />
+          <div>
+            Reviews
+          </div>
         </Col>
       </Row>
 
