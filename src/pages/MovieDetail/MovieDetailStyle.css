@@ -1,0 +1,31 @@
+
+.movie-detail-img-area {
+    position: relative;
+}
+
+.movie-detail-img {
+    width: 100%;
+    border-radius: 1.5rem;
+}
+
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    font-size: 5rem; 
+    color: red; 
+    cursor: pointer; 
+    opacity: 0.8; 
+    transition: opacity 0.3s ease;
+}
+
+.play-button:hover {
+    opacity: 1; 
+}
+
+@media (max-width: 767px) {
+    .mr-3 {
+      margin-right: 0 !important; 
+    }
+  }

@@ -4,8 +4,11 @@ import './MovieCardStyle.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFire, faSquarePollVertical, faCircleUser  } from '@fortawesome/free-solid-svg-icons';
 import { useMovieGenreQuery } from '../../hooks/useMovieGenre';
+import { useNavigate } from 'react-router-dom';
 
 const MovieCard = ({movie}) => {
+
+  const navigate = useNavigate();
 
   const {data: genreData} = useMovieGenreQuery();
   console.log('genreData:', genreData);
@@ -25,6 +28,10 @@ const MovieCard = ({movie}) => {
   const imageUrl = `https://media.themoviedb.org/t/p/w300_and_h450_bestv2${poster_path}`; 
   // console.log('Image URL:', imageUrl);
 
+  const handleCardClick = () => {
+    navigate(`/movies/${movie.id}`);
+  };
+
   return (
     <div
       style={{
@@ -33,7 +40,8 @@ const MovieCard = ({movie}) => {
           `${imageUrl}` +
           ")",
       }}
-      className="movie-card"
+      className="movie-card" 
+      onClick={handleCardClick}
     >
       <div className='movie-card-info'>
         <div className="movie-card-badge-container">
