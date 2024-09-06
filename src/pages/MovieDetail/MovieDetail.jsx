@@ -7,7 +7,6 @@ import { useMovieDetailsQuery } from '../../hooks/useMovieDetails';
 import { useMovieTrailerQuery } from '../../hooks/useMovieTrailer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFire, faSquarePollVertical, faCircleUser, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
-import Reviews from '../Homepage/components/Reviews/Reviews';
 import './MovieDetailStyle.css';
 
 const MovieDetail = () => {
