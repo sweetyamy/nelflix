@@ -137,27 +137,27 @@ const MovieList = () => {
       
       {/* Pagination */}
       <Row className='d-flex justify-content-center mt-4'>
-        <ReactPaginate
-          previousLabel="<"
-          nextLabel=">"
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          marginPagesDisplayed={1}
-          pageCount={movieData?.total_pages} // total page count
-          pageClassName="page-item"
-          pageLinkClassName="page-link"
-          previousClassName="page-item"
-          previousLinkClassName="page-link"
-          nextClassName="page-item"
-          nextLinkClassName="page-link"
-          breakLabel="..."
-          breakClassName="page-item"
-          breakLinkClassName="page-link"
-          containerClassName="pagination"
-          activeClassName="active"
-          forcePage={page - 1}
-          renderOnZeroPageCount={null}
-        />
+      <ReactPaginate
+        previousLabel={page === 1 ? null : "<"} // 첫 페이지에서 이전 버튼 숨기기
+        nextLabel={page === movieData?.total_pages ? null : ">"} // 마지막 페이지에서 다음 버튼 숨기기
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        marginPagesDisplayed={1}
+        pageCount={movieData?.total_pages} // total page count
+        pageClassName="page-item"
+        pageLinkClassName="page-link"
+        previousClassName={page === 1 ? "d-none" : "page-item"} // 첫 페이지에서 이전 버튼 완전히 숨기기
+        previousLinkClassName="page-link"
+        nextClassName={page === movieData?.total_pages ? "d-none" : "page-item"} // 마지막 페이지에서 다음 버튼 완전히 숨기기
+        nextLinkClassName="page-link"
+        breakLabel="..."
+        breakClassName="page-item"
+        breakLinkClassName="page-link"
+        containerClassName="pagination"
+        activeClassName="active"
+        forcePage={page - 1}
+        renderOnZeroPageCount={null}
+      />
       </Row>
     </Container>
   );
