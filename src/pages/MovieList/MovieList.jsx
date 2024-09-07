@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useSearchMovieQuery } from '../../hooks/useSearchMovie';
+import { useMovieGenreQuery } from '../../hooks/useMovieGenre'; 
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Alert, Container, Spinner, Row, Col, Form } from 'react-bootstrap';
 import MovieCard from '../../common/MovieCard/MovieCard';
@@ -16,26 +17,25 @@ const MovieList = () => {
   const [sortOption, setSortOption] = useState('popularity.desc');
   const [selectedGenre, setSelectedGenre] = useState('');
 
+  const moviesPerPage = 10;
   // Get search keyword
   const keyword = query.get('q');
 
   // Fetch movies based on the keyword, page, and sorting option
-  const { data, isLoading, isError, error } = useSearchMovieQuery({ keyword, page, sortOption });
+  const { data: movieData, isLoading, isError, error } = useSearchMovieQuery({ keyword, page, sortOption });
   
-  // Genre options
-  const genres = [
-    { id: '', name: 'All' }, 
-    { id: 28, name: 'Action' }, 
-    { id: 35, name: 'Comedy' }
-  ]; 
+  // Fetch genre options
+  const { data: genreData, isLoading: isGenreLoading } = useMovieGenreQuery();
 
   // Handle sorting option change
   const handleSortChange = (e) => {
+    setPage(1);
     setSortOption(e.target.value);
   };
 
   // Handle genre filter change
   const handleGenreChange = (e) => {
+    setPage(1);
     setSelectedGenre(e.target.value);
   };
 
@@ -46,16 +46,16 @@ const MovieList = () => {
 
   // Redirect if no movies found
   useEffect(() => {
-    if (data?.results.length === 0) {
+    if (movieData?.results.length === 0) {
       const timer = setTimeout(() => {
         navigate('/movies');
       }, 2000); 
 
       return () => clearTimeout(timer); 
     }
-  }, [data, navigate]);
+  }, [movieData, navigate]);
 
-  if (isLoading) {
+  if (isLoading || isGenreLoading) {
     return (
       <div className='spinner-area d-flex justify-content-center align-items-center'>
         <Spinner animation='border' variant='danger' style={{ width: '5rem', height: '5rem' }} />
@@ -67,7 +67,7 @@ const MovieList = () => {
     return <Alert variant='danger'>{error.message}</Alert>;
   }
 
-  if (data?.results.length === 0) {
+  if (movieData?.results.length === 0) {
     return (
       <Container className='d-flex flex-column justify-content-center align-items-center'>
         <Alert variant='warning'>
@@ -78,7 +78,7 @@ const MovieList = () => {
   }
 
   // Filter movies by selected genre
-  let filteredMovies = data.results;
+  let filteredMovies = movieData.results;
   if (selectedGenre) {
     filteredMovies = filteredMovies.filter((movie) =>
       movie.genre_ids.includes(parseInt(selectedGenre))
@@ -100,7 +100,7 @@ const MovieList = () => {
     <Container className='d-flex flex-column justify-content-center align-items-center'>
       {/* Sorting and Genre Filtering */}
       <Row className='w-100 mb-3'>
-        <Col md={4}>
+        <Col md={4} className='sorting'>
           <Form.Select aria-label="Sort by" onChange={handleSortChange} value={sortOption}>
             <option value="popularity.desc">Popularity Descending</option>
             <option value="popularity.asc">Popularity Ascending</option>
@@ -110,8 +110,10 @@ const MovieList = () => {
         </Col>
 
         <Col md={4}>
+          {/* Genre Filter Dropdown */}
           <Form.Select aria-label="Filter by Genre" onChange={handleGenreChange} value={selectedGenre}>
-            {genres.map((genre) => (
+            <option value="">All</option> {/* Add 'All' option */}
+            {genreData && genreData.map((genre) => (
               <option key={genre.id} value={genre.id}>{genre.name}</option>
             ))}
           </Form.Select>
@@ -123,7 +125,7 @@ const MovieList = () => {
         <Col> 
           <Container>
             <Row className='d-flex justify-content-center'>
-              {filteredMovies.slice(0, 10).map((movie, index) => (
+              {filteredMovies.slice(0, moviesPerPage).map((movie, index) => (
                 <Col key={index}>
                   <MovieCard movie={movie} />
                 </Col>
@@ -141,7 +143,7 @@ const MovieList = () => {
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
           marginPagesDisplayed={1}
-          pageCount={data?.total_pages} // total page count
+          pageCount={movieData?.total_pages} // total page count
           pageClassName="page-item"
           pageLinkClassName="page-link"
           previousClassName="page-item"
