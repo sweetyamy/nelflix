@@ -1,0 +1,15 @@
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
+
+.review-line {
+    border: none;
+    border-top: 1px dashed gray; /* You can change the color and thickness */
+    margin: 20px 0; /* Optional: adjust the spacing */
+  }
+
+  .btn-link {
+    color: #ffc107;
+  }
+
+  .btn-link:hover {
+    color: #e0a800 ;
+  }

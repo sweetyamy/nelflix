@@ -6,3 +6,10 @@ html body {
   height: 100vh;
 }
 
+a {
+  color: #ffc107 !important;
+}
+
+a:hover {
+  color: #e0a800 !important;
+}

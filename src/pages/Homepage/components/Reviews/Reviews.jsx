@@ -3,6 +3,7 @@ import { useMovieReviewsQuery } from '../../../../hooks/useMovieReviews';
 import Spinner from 'react-bootstrap/Spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import './ReviewsStyle.css';
 
 const MovieReviews = ({ movieId }) => {
   const { data, isLoading, isError, error } = useMovieReviewsQuery(movieId);
@@ -27,7 +28,7 @@ const MovieReviews = ({ movieId }) => {
 
   return (
     <div className="reviews-container">
-      <h2>Movie Reviews</h2>
+      <h2 className='text-center'>Movie Reviews</h2>
       {reviews.map((review) => (
         <ReviewItem key={review.id} review={review} />
       ))}
@@ -57,7 +58,7 @@ const ReviewItem = ({ review }) => {
       );
     } else {
       return (
-        <p>{review.content.slice(0, 300)}...
+        <p>{review.content.slice(0, 200)}...
           <button onClick={toggleExpanded} className="btn btn-link">
             <FontAwesomeIcon icon={faChevronDown} />
           </button>
@@ -68,10 +69,10 @@ const ReviewItem = ({ review }) => {
 
   return (
     <div className="review-item mb-4"> 
+      <hr className='review-line'/>
       <h4>{review.author}</h4>
       {renderContent()} 
-      {review.rating && <span>Rating: {review.rating}/10</span>} 
-      <hr />
+      {review.rating && <span>Rating: {review.rating}/10</span>}
     </div>
   );
 };

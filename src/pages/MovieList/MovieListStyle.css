@@ -1,3 +1,5 @@
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
+
 /* Pagination styles */
 .pagination .page-link {
     background-color: black;
