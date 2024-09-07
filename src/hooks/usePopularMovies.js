@@ -14,7 +14,7 @@ const fetchPopularMovies = async () => {
 
 export const usePopularMoviesQuery = () => {
   return useQuery({
-    queryKey: ['popularMovies'],
+    queryKey: ['popular-movies'],
     queryFn: fetchPopularMovies,
     select: (data) => data.results,
     onError: (error) => {

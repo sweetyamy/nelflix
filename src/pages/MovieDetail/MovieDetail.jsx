@@ -8,6 +8,7 @@ import { useMovieTrailerQuery } from '../../hooks/useMovieTrailer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFire, faSquarePollVertical, faCircleUser, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import './MovieDetailStyle.css';
+import Reviews from '../Homepage/components/Reviews/Reviews';
 
 const MovieDetail = () => {
   const { id } = useParams();
@@ -53,7 +54,7 @@ const MovieDetail = () => {
   const handleCloseModal = () => setShowModal(false);
 
   const poster_path = movie.poster_path;
-  const imageUrl = `https://media.themoviedb.org/t/p/w300_and_h450_bestv2${poster_path}`; 
+  const imageUrl = `https://image.tmdb.org/t/p/w400${poster_path}`; 
 
   const truncatedOverview = movie.overview.length > 200 
     ? movie.overview.substring(0, 200) + '...'
@@ -125,7 +126,7 @@ const MovieDetail = () => {
         <Col>
           <hr />
           <div>
-            Reviews
+              <Reviews movieId={id} />
           </div>
         </Col>
       </Row>

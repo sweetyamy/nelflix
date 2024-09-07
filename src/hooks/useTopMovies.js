@@ -14,7 +14,7 @@ const fetchTopMovies = async () => {
 
 export const useTopMoviesQuery = () => {
   return useQuery({
-    queryKey: ['topMovies'],
+    queryKey: ['top-movies'],
     queryFn: fetchTopMovies,
     select: (data) => data.results,
     onError: (error) => {

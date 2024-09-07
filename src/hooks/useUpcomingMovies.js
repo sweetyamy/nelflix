@@ -14,7 +14,7 @@ const fetchUpcomingMovies = async () => {
 
 export const useUpcomingMoviesQuery = () => {
   return useQuery({
-    queryKey: ['upcomingMovies'],
+    queryKey: ['upcoming-movies'],
     queryFn: fetchUpcomingMovies,
     select: (data) => data.results,
     onError: (error) => {
