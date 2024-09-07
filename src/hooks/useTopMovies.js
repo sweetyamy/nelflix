@@ -1,9 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import api from '../utils/api';
 
-const fetchTopMovies = async () => {
+const fetchTopMovies = async (language) => {
   try {
-    const res = await api.get('/movie/top_rated');
+    const res = await api.get('/movie/top_rated', {
+      params: {
+        language
+      }
+    });
     console.log('API response data:', res.data);
     return res.data;
   } catch (error) {
@@ -12,10 +16,10 @@ const fetchTopMovies = async () => {
   }
 };
 
-export const useTopMoviesQuery = () => {
+export const useTopMoviesQuery = (language = 'en') => {
   return useQuery({
-    queryKey: ['top-movies'],
-    queryFn: fetchTopMovies,
+    queryKey: ['top-movies', language],
+    queryFn: () => fetchTopMovies(language),
     select: (data) => data.results,
     onError: (error) => {
       console.error('Error in useTopMoviesQuery:', error);

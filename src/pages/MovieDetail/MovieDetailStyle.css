@@ -29,4 +29,27 @@
     .mr-3 {
       margin-right: 0 !important; 
     }
+
+    .movie-detail-img-area {
+        position: relative;
+      }
+    
+      .play-button {
+        font-size: 50px;
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        cursor: pointer;
+      }
+    
+      .movie-detail-img, .movie-detail-trailer {
+        width: 100%;
+        height: auto;
+      }
+    
+      .movie-info {
+        margin-top: 20px;
+      }
   }

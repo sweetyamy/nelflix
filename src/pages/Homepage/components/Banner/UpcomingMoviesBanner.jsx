@@ -2,9 +2,11 @@ import React from 'react'
 import { useUpcomingMoviesQuery } from '../../../../hooks/useUpcomingMovies';
 import Alert from 'react-bootstrap/Alert';
 import './BannerStyle.css'; 
+import { useLanguage } from '../../../../contexts/LanguageContext';
 
 const Banner = () => {
-    const {data: results, isLoading, isError, error } = useUpcomingMoviesQuery();
+    const { language } = useLanguage();
+    const {data: results, isLoading, isError, error } = useUpcomingMoviesQuery(language);
     
     console.log('isLoading:', isLoading);
     console.log('isError:', isError);

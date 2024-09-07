@@ -2,9 +2,11 @@ import React from 'react'
 import { usePopularMoviesQuery } from '../../../../hooks/usePopularMovies';
 import Alert from 'react-bootstrap/Alert';
 import './BannerStyle.css'; 
+import { useLanguage } from '../../../../contexts/LanguageContext';
 
 const Banner = () => {
-    const {data: results, isLoading, isError, error } = usePopularMoviesQuery();
+    const { language } = useLanguage();
+    const {data: results, isLoading, isError, error } = usePopularMoviesQuery(language);
     
     console.log('isLoading:', isLoading);
     console.log('isError:', isError);

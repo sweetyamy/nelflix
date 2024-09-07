@@ -5,7 +5,7 @@
 }
 
 .navbar-container .nav-link:hover, .nav-link.disabled {
-  color: rgb(182, 181, 181) !important;/* Optional: Change color on hover */
+  color: rgb(182, 181, 181) !important;
 }
 
 .dark-search {
@@ -25,7 +25,7 @@
   }
 
   .nav-membership {
-    display: none;
+    display: none !important;
   }
 
   .search-area {

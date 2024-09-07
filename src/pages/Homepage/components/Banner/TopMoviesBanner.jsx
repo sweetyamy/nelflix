@@ -2,9 +2,11 @@ import React from 'react'
 import { useTopMoviesQuery } from '../../../../hooks/useTopMovies';
 import Alert from 'react-bootstrap/Alert';
 import './BannerStyle.css'; 
+import { useLanguage } from '../../../../contexts/LanguageContext';
 
 const Banner = () => {
-    const {data: results, isLoading, isError, error } = useTopMoviesQuery();
+    const { language } = useLanguage();
+    const {data: results, isLoading, isError, error } = useTopMoviesQuery(language);
     
     console.log('isLoading:', isLoading);
     console.log('isError:', isError);

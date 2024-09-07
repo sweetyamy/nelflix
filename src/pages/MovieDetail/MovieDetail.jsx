@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Badge, Modal, Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useParams } from 'react-router-dom'; 
+import { useParams } from 'react-router-dom';
 import { useMovieGenreQuery } from '../../hooks/useMovieGenre';
 import { useMovieDetailsQuery } from '../../hooks/useMovieDetails';
 import { useMovieTrailerQuery } from '../../hooks/useMovieTrailer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFire, faSquarePollVertical, faCircleUser, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
+import { faFire, faSquarePollVertical, faCircleUser, faPlayCircle, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import './MovieDetailStyle.css';
 import Reviews from '../Homepage/components/Reviews/Reviews';
 
@@ -16,9 +16,23 @@ const MovieDetail = () => {
   const { data: genreData } = useMovieGenreQuery();
   const [isReviewExpanded, setIsReviewExpanded] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Fetch the movie trailer
   const { data: trailer, isTrailerLoading, error: trailerError } = useMovieTrailerQuery(id);
+
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768); // Mobile view for width <= 768px
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   if (isLoading) {
     return (
@@ -54,7 +68,7 @@ const MovieDetail = () => {
   const handleCloseModal = () => setShowModal(false);
 
   const poster_path = movie.poster_path;
-  const imageUrl = `https://image.tmdb.org/t/p/w400${poster_path}`; 
+  const imageUrl = `https://image.tmdb.org/t/p/w400${poster_path}`;
 
   const truncatedOverview = movie.overview.length > 200 
     ? movie.overview.substring(0, 200) + '...'
@@ -67,21 +81,32 @@ const MovieDetail = () => {
   return (
     <Container>
       <Row>
-      <Col className="movie-detail-img-area">
-        {/* Movie Poster */}
-        <img src={imageUrl} alt={movie.title} className="movie-detail-img" />
+        <Col lg={4} sm={12} className="movie-detail-img-area">
+          {/* 모바일에서는 트레일러를 우선적으로 보여줌 */}
+          {isMobile && trailer ? (
+            <iframe
+              width="100%"
+              height="315"
+              src={`https://www.youtube.com/embed/${trailer.key}`}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          ) : (
+            <img src={imageUrl} alt={movie.title} className="movie-detail-img" />
+          )}
 
-        {/* Play button only if trailer exists */}
-        {trailer && (
-          <FontAwesomeIcon
-            icon={faPlayCircle}
-            className="play-button"
-            onClick={handlePlayClick}
-          />
-        )}
-      </Col>
+          {/* Play button only for desktop view */}
+          {!isMobile && trailer && (
+            <FontAwesomeIcon
+              icon={faPlayCircle}
+              className="play-button"
+              onClick={handlePlayClick}
+            />
+          )}
+        </Col>
 
-        <Col>
+        <Col lg={8} sm={12}>
           <div className="movie-card-badge-container">
             {movie.genre_ids && showGenre(movie.genre_ids).map((genre, index) => (
               <Badge bg="danger" className="movie-card-badge" key={index}>{genre}</Badge>
@@ -101,33 +126,30 @@ const MovieDetail = () => {
             </span>
             <span className='mr-3'>
               <FontAwesomeIcon icon={faCircleUser} className='movie-card-ico-user' />
-              { movie.adult ? "Adult" : "Under 18" }
+              {movie.adult ? "Adult" : "Under 18"}
             </span>
           </div>
           
           <hr />
-          {/* Display truncated or full review */}
-          <p>{isReviewExpanded ? movie.overview : truncatedOverview}</p>
-
-          {/* Show toggle button */}
-          <button onClick={toggleReviewExpansion} className="btn btn-link">
-            {isReviewExpanded ? 'Show less' : 'Show more'}
-          </button>
+          <p>
+            {isReviewExpanded ? movie.overview : truncatedOverview}
+            <button onClick={toggleReviewExpansion} className="btn btn-link">
+              {isReviewExpanded ? <FontAwesomeIcon icon={faChevronUp} /> : <FontAwesomeIcon icon={faChevronDown} />}
+            </button>
+          </p>
           <hr />
 
           <p><a href={`http://${movie.homepage}`} target="_blank" rel="noopener noreferrer">{movie?.homepage}</a></p>
           <p>* Released : {movie?.release_date || null}</p>
-          {movie.runtime ? (<p>* Runtime : {`${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60} mins`}</p>) : null}
-          {movie.revenue ? (<p>* Revenue : {parseFloat(movie.revenue).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>) : null}
+          {movie.runtime && (<p>* Runtime : {`${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60} mins`}</p>)}
+          {movie.revenue && (<p>* Revenue : {parseFloat(movie.revenue).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>)}
         </Col>
       </Row>
 
       <Row>
         <Col>
           <hr />
-          <div>
-              <Reviews movieId={id} />
-          </div>
+          <Reviews movieId={id} />
         </Col>
       </Row>
 
