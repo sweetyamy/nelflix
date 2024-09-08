@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert } from'react-bootstrap'
+import { Alert, Spinner } from'react-bootstrap'
 import { useUpcomingMoviesQuery } from '../../../../hooks/useUpcomingMovies.js'
 import MovieSlider from '../../../../common/MovieSlider/MovieSlider';
 import "react-multi-carousel/lib/styles.css";
@@ -14,7 +14,9 @@ const UpcomingMoviesSlide = () => {
     console.log('Movies in UpcomingMoviesSlide:', movies);
   
   if (isLoading || !data) {
-    return <div>Loading...</div>;
+    return <div className='spinner-area d-flex justify-content-center align-items-center'>
+    <Spinner animation='border' variant='danger' style={{ width: '5rem', height: '5rem' }} />
+  </div>;
 }
 
   if (isError) {

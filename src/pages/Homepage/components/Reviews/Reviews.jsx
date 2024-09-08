@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMovieReviewsQuery } from '../../../../hooks/useMovieReviews';
-import Spinner from 'react-bootstrap/Spinner';
+import { Alert, Spinner } from'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import './ReviewsStyle.css';
@@ -17,8 +17,8 @@ const MovieReviews = ({ movieId }) => {
   }
 
   if (isError) {
-    return <div>Error loading movie reviews: {error.message}</div>;
-  }
+    return <Alert variant='danger'>Error: {error.message}</Alert>
+}
 
   const reviews = Array.isArray(data?.results) ? data.results : [];
 
@@ -27,7 +27,7 @@ const MovieReviews = ({ movieId }) => {
   }
 
   return (
-    <div className="reviews-container">
+    <div>
       <h2 className='text-center'>Movie Reviews</h2>
       {reviews.map((review) => (
         <ReviewItem key={review.id} review={review} />

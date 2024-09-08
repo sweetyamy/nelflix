@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFire, faSquarePollVertical, faCircleUser, faPlayCircle, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import './MovieDetailStyle.css';
 import Reviews from '../Homepage/components/Reviews/Reviews';
+import Recommendations from '../Homepage/components/Recommendations/Recommendations';
 
 const MovieDetail = () => {
   const { id } = useParams();
@@ -150,6 +151,12 @@ const MovieDetail = () => {
         <Col>
           <hr />
           <Reviews movieId={id} />
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <Recommendations movieId={id} />
         </Col>
       </Row>
 

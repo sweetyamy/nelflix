@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTopMoviesQuery } from '../../../../hooks/useTopMovies';
-import Alert from 'react-bootstrap/Alert';
+import { Alert, Spinner } from'react-bootstrap'
 import './BannerStyle.css'; 
 import { useLanguage } from '../../../../contexts/LanguageContext';
 
@@ -15,8 +15,12 @@ const Banner = () => {
     
 
     if (isLoading) {
-        return <div>Loading...</div>
-    }
+        return (
+          <div className='spinner-area d-flex justify-content-center align-items-center'>
+            <Spinner animation='border' variant='danger' style={{ width: '5rem', height: '5rem' }} />
+          </div>
+        );
+      }
 
     if (isError) {
         return <Alert variant='danger'>Error: {error.message}</Alert>
