@@ -13,7 +13,6 @@ const Banner = () => {
     console.log('Error:', error);
     console.log('Data:', results);
     
-
     if (isLoading) {
         return (
           <div className='spinner-area d-flex justify-content-center align-items-center'>
